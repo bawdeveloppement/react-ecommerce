@@ -1,6 +1,6 @@
 import React from 'react'
 import LinkNav from '../linknav/linknav.component'
-import './header.styles.scss'
+import './header.styles.scss'   
 
 import { ReactComponent as Logo } from '../../assets/svg/crown.svg';
 
@@ -15,6 +15,9 @@ const Header = () => {
             </LinkNav>
             <LinkNav className="option" to="/contact">
                 CONTACT
+            </LinkNav>
+            <LinkNav className="option" to="/auth">
+                SIGNIN / REGISTER
             </LinkNav>
         </div>
     </div>
