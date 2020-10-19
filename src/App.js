@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Route, Routes } from 'react-router-dom';
 import useTimeout from './hooks/timeout.hook';
-import HomePage from './pages/homepage/homepage.component';
+import HomePage from './pages/homepage/home.component';
 import './App.css';
+import ShopPage from './pages/shoppage/shop.component';
 
 
 
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/hats" element={<HatsPage/>} />
+        <Route path="/shop" element={<ShopPage/>} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
