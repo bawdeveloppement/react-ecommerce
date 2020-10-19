@@ -6,6 +6,7 @@ import HomePage from './pages/homepage/home.component';
 import './App.css';
 import ShopPage from './pages/shoppage/shop.component';
 import Header from './components/header/header.component';
+import AuthPage from './pages/authpage/Auth.page';
 
 
 const HatsPage = () => {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/" element={<HomePage/>} />
         <Route path="/hats" element={<HatsPage/>} />
         <Route path="/shop" element={<ShopPage/>} />
+        <Route path="/auth" element={<AuthPage/>} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
