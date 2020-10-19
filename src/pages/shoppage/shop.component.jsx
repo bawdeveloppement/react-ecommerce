@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ShopData from './shop.data';
-import CollectionPreview from '../../components/preview-collection/preview-collection.component';
+import CollectionPreview from '../../components/collection-preview/collection-preview.component';
 
 const ShopPage = () => {
     // eslint-disable-next-line no-unused-vars
