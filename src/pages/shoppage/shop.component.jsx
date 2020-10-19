@@ -9,7 +9,7 @@ const ShopPage = () => {
     return <div className="shop-page">
         {
             collections.map(({id, ...collectionProps}) => (
-                <CollectionPreview  key={id} {...collectionProps} />
+                <CollectionPreview restrict={4} key={id} {...collectionProps} />
             ))
         }
     </div>
