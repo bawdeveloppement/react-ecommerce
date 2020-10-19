@@ -5,7 +5,7 @@ import useTimeout from './hooks/timeout.hook';
 import HomePage from './pages/homepage/home.component';
 import './App.css';
 import ShopPage from './pages/shoppage/shop.component';
-
+import Header from './components/header/header.component';
 
 
 const HatsPage = () => {
@@ -24,9 +24,11 @@ const ErrorPage = ({ redirect }) => {
   </div>
 }
 
+
 function App() {
   return (
     <div>
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/hats" element={<HatsPage/>} />
