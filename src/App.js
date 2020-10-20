@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Route, Routes } from 'react-router-dom';
 import useTimeout from './hooks/timeout.hook';
@@ -7,6 +7,7 @@ import './App.css';
 import ShopPage from './pages/shoppage/shop.component';
 import Header from './components/header/header.component';
 import AuthPage from './pages/authpage/Auth.page';
+import { auth } from './firebase/firebase.utils';
 
 
 const HatsPage = () => {
@@ -27,6 +28,19 @@ const ErrorPage = ({ redirect }) => {
 
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    let unsubscribe = auth.onAuthStateChanged(user => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
+
   return (
     <div>
       <Header />

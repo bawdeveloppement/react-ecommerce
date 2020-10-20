@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import FormButtonComponent from '../forms/button/FormButton.component';
 import FormInputComponent from '../forms/input/FormInput.component';
 
 import './SignIn.styles.scss'
+
+import { signInWithGoogle } from '../../firebase/firebase.utils';
 
 export default () => {
     const [emailInput, setEmailInput] = useState("");
@@ -33,7 +36,8 @@ export default () => {
                 handleChange={(e) => setPasswordInput(e.target.value)} 
                 required
             />
-            <input type="submit" value="Submit form" disabled={emailInput.length === 0 && passwordInput === 0} />
+            <FormButtonComponent type="submit">Sign In</FormButtonComponent>
+            <FormButtonComponent onClick={signInWithGoogle} onSubmit={(e) => e.preventDefault()}>Sign In with Google</FormButtonComponent>
         </form>
     </div>
 }
