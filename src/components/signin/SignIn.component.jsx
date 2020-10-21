@@ -4,14 +4,19 @@ import FormInputComponent from '../forms/input/FormInput.component';
 
 import './SignIn.styles.scss'
 
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 export default () => {
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
 
-    const handleSignIn = (e) => {
+    const handleSignIn = async (e) => {
         e.preventDefault();
+
+        try {
+            await auth.signInWithEmailAndPassword(emailInput, passwordInput)
+        } catch (error) { console.error(error) }
+
         setEmailInput("");
         setPasswordInput("");
     }
