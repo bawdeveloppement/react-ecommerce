@@ -7,7 +7,7 @@ import './App.css';
 import ShopPage from './pages/shoppage/shop.component';
 import Header from './components/header/header.component';
 import AuthPage from './pages/authpage/Auth.page';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 
 const HatsPage = () => {
@@ -31,19 +31,32 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    let unsubscribe = auth.onAuthStateChanged(user => {
-      setCurrentUser(user);
+    let unsubscribe = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapshot => {
+          setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data()
+          })
+        });
+      }
+      setCurrentUser(userAuth)
     });
+
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    console.log(currentUser);
+    if (currentUser && currentUser.id) {
+      console.log(currentUser);
+    }
   }, [currentUser]);
 
   return (
     <div>
-      <Header />
+      <Header currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/hats" element={<HatsPage/>} />
