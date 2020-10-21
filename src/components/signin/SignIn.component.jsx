@@ -36,8 +36,10 @@ export default () => {
                 handleChange={(e) => setPasswordInput(e.target.value)} 
                 required
             />
-            <FormButtonComponent type="submit">Sign In</FormButtonComponent>
-            <FormButtonComponent onClick={signInWithGoogle} onSubmit={(e) => e.preventDefault()}>Sign In with Google</FormButtonComponent>
+            <div className="buttons">
+                <FormButtonComponent type="submit">Sign In</FormButtonComponent>
+                <FormButtonComponent onClick={signInWithGoogle} isGoogleSignin onSubmit={(e) => e.preventDefault()}>Sign In with Google</FormButtonComponent>
+            </div>
         </form>
     </div>
 }
