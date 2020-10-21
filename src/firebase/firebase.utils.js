@@ -3,25 +3,41 @@ import 'firebase/storage';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-const config = {
-    apiKey: "AIzaSyD7iTMJjudGRs1qS83zZaxhkgbcHqMTAGA",
-    authDomain: "react-ecommerce-db-ddaec.firebaseapp.com",
-    databaseURL: "https://react-ecommerce-db-ddaec.firebaseio.com",
-    projectId: "react-ecommerce-db-ddaec",
-    storageBucket: "react-ecommerce-db-ddaec.appspot.com",
-    messagingSenderId: "210545355854",
-    appId: "1:210545355854:web:de43eb47601e84518fe71f",
-    measurementId: "G-H55JFYQJB8"
-}
+import config from './firebase.config';
 
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+    console.log(userAuth.uid)
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+    
+    const snapShot = await userRef.get();
+
+    if (!snapShot.exists) {
+        const { displayName, email } = userAuth;
+        const createdAt = new Date();
+        try {
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            });
+        } catch (error) {
+            console.log("Error creating user", error.message);
+        }
+    }
+
+    return userRef;
+}
+
+
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
-
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
