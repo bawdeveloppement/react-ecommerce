@@ -1,10 +1,12 @@
 import React from 'react'
 import LinkNav from '../linknav/linknav.component'
-import './header.styles.scss'   
 
+import { auth } from '../../firebase/firebase.utils';
 import { ReactComponent as Logo } from '../../assets/svg/crown.svg';
 
-const Header = () => {
+import './header.styles.scss'   
+const Header = ({ currentUser }) => {
+
     return <div className="header">
         <LinkNav to="/" className='logo-container'>
             <Logo className="logo"/>
@@ -16,9 +18,12 @@ const Header = () => {
             <LinkNav className="option" to="/contact">
                 CONTACT
             </LinkNav>
-            <LinkNav className="option" to="/auth">
-                SIGNIN / REGISTER
-            </LinkNav>
+            { currentUser ? 
+                <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div> : 
+                <LinkNav className="option" to="/auth">
+                    SIGNIN / REGISTER
+                </LinkNav>
+            }
         </div>
     </div>
 }
