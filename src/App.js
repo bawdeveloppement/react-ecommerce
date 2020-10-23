@@ -1,22 +1,29 @@
+//#region Dependencies
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import { useParams } from 'react-router';
+//#endregion
+//#region Custom Hooks & Functions
 import useTimeout from './hooks/timeout.hook';
-import HomePage from './pages/homepage/home.component';
-import './App.css';
-import ShopPage from './pages/shoppage/shop.component';
-import Header from './components/header/header.component';
-import AuthPage from './pages/authpage/Auth.page';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { setCurrentUser } from './redux/user/User.actions';
+//#endregion
+//#region CSS
+import './App.css';
+//#endregion
+//#region Components
+import Header from './components/header/header.component';
+//#endregion
+//#region Modules
+import HomePage from './modules/homepage/home.component';
+import AuthPage from './modules/authpage/Auth.page';
+import ShopPage from './modules/shop/Shop.page';
+import ShopComponent from './modules/shop/Shop.component';
+//#endregion
 
-
-const HatsPage = () => {
-  const navigate = useNavigate();
-  return  <div>
-    <button onClick={() => navigate(-1)}>go back</button>
-    <h1>Hats page</h1>
-  </div>
-}
 
 const ErrorPage = ({ redirect }) => {
   const navigate = useNavigate();
@@ -28,25 +35,25 @@ const ErrorPage = ({ redirect }) => {
 
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
-
+  const { currentUser } = useSelector(state => state.user);
+  const dispatch = useDispatch();
   useEffect(() => {
     let unsubscribe = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapshot => {
-          setCurrentUser({
+          dispatch(setCurrentUser({
             id: snapshot.id,
             ...snapshot.data()
-          })
+          }))
         });
       }
-      setCurrentUser(userAuth)
+      dispatch(setCurrentUser(userAuth))
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (currentUser && currentUser.id) {
@@ -56,11 +63,12 @@ function App() {
 
   return (
     <div>
-      <Header currentUser={currentUser} />
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage/>} />
-        <Route path="/hats" element={<HatsPage/>} />
-        <Route path="/shop" element={<ShopPage/>} />
+        <Route path="/shop" element={<ShopPage/>}>
+          <Route path={"/:category"} element={<ShopComponent/>}/>
+        </Route>
         <Route path="/auth" element={<AuthPage/>} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
