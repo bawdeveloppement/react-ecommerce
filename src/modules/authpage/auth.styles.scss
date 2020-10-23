@@ -1,0 +1,10 @@
+$bp-tablet: 768px;
+
+.auth-page {
+    @media (min-width: $bp-tablet) {
+        width: 100%;
+        margin: 0px auto;
+        display: flex;
+        justify-content: space-between;
+    }
+}
