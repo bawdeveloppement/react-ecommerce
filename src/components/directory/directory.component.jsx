@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuItem from '../menu-item/menu-item.component';
+import MenuItem from '../menu/item/MenuItem.component';
 import './directory.styles.scss';
 
 const sections = [
@@ -7,7 +7,7 @@ const sections = [
         title: 'hats',
         imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
         id: 1,
-        linkUrl: 'hats'
+        linkUrl: 'shop/hats'
     },
     {
         title: 'jackets',
