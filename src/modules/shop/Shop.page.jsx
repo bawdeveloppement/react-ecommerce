@@ -11,7 +11,5 @@ export default function ShopPage ({ target }) {
     const [collections, setCollections] = useState(ShopData);
     const { pathname } = useLocation();
     
-    return <div className="shop-page">
-        { pathname === '/shop' ? <ShopComponent restrict={4} /> : <Outlet/> }
-    </div>
+    return pathname === '/shop' ? <ShopComponent restrict={4} /> : <Outlet/>
 }

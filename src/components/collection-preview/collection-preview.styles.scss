@@ -11,34 +11,38 @@
   }
 
   .title {
+    color: black;
     font-size: 28px;
-    margin-bottom: 25px;
-    
-    &.active {
-      text-decoration: underline;
-      text-underline-position: under;
-    }
-
+    margin-bottom: 25px;  
+  
     .title-link {
+      &.inactive {
+        color: gray;
+      }
+
       &:hover {
+        color: black;
         text-decoration: underline;
         text-underline-position: under;
         cursor: pointer;
       }
 
+      &.active {
+        color: black;
+        text-decoration: underline;
+        text-underline-position: under;
+      }
     }
   }
 
   .preview {
     display: flex;
     flex-wrap: wrap;
-    margin: 5px 5px;
     justify-content: space-between;
     align-items: center;
     
     .collection-item {
       margin-bottom: 30px;
-      margin: 10px auto;
     }
   }
 }

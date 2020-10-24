@@ -4,12 +4,14 @@ import CollectionPreview from '../../components/collection-preview/collection-pr
 import { useLocation } from 'react-router';
 import { useParams } from 'react-router';
 
-export default function ShopComponent ({ target, restrict }) {
+export default function ShopComponent ({ restrict }) {
     // eslint-disable-next-line no-unused-vars
     const [notFound, setNotFound] = useState(null);
+    // eslint-disable-next-line no-unused-vars
     const [collections, setCollections] = useState(ShopData);
     const { category } = useParams();
-    return <div className="shop-page">
+
+    return <>
         { notFound !== null && typeof(notFound) === "string" ? <div>Not found</div> : null } 
         {
             collections
@@ -22,5 +24,5 @@ export default function ShopComponent ({ target, restrict }) {
                 <CollectionPreview restrict={restrict} key={id} {...collectionProps} />
             ))
         }
-    </div>
+    </>
 }

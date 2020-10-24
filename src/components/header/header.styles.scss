@@ -3,13 +3,21 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
   
     .logo-container {
         height: 100%;
         width: 70px;
-        padding: 25px;
+        display: flex;
+        align-content: center;
+        text-align: center;
+        align-items: center;
         cursor: pointer;
+        
+        svg {
+            align-self: center;
+            text-align: center;
+            vertical-align: middle;
+        }
     }
   
     .options {
@@ -22,6 +30,11 @@
         .option {
             padding: 10px 15px;
             cursor: pointer;
+
+        }
+        .active {
+            font-weight: bold;
         }
     }
+
 }
