@@ -62,7 +62,7 @@ function App() {
   }, [currentUser]);
 
   return (
-    <div>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<HomePage/>} />
@@ -72,7 +72,7 @@ function App() {
         <Route path="/auth" element={<AuthPage/>} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
